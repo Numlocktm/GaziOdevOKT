@@ -47,6 +47,38 @@ namespace GaziOdevOKT
                 MessageBox.Show("Bir hata oluştu!!");
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                var obl = new OgretmenBL();
+                bool sonuc = obl.OgretmenEkle(new Ogretmen { Tc = txtTc.Text.Trim(), Ad = txtAd.Text.Trim(), Soyad = txtSoyad.Text.Trim() });
+                MessageBox.Show(sonuc ? "Ekleme başarılı!" : "Ekleme başarısız!!");
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 2627:
+                        MessageBox.Show("Bu numara daha önce kayıtlı");
+                        break;
+                    default:
+                        MessageBox.Show("Veritabanı Hatası!");
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Bir hata oluştu!!");
+            }
+        }
+
+        private void txtTC_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
