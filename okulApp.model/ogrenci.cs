@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace okulApp.model
+namespace OkulApp.MODEL
 {
     public class Ogrenci
     {
