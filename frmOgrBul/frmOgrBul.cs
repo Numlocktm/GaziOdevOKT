@@ -1,10 +1,9 @@
-﻿using OkulApp.MODEL;
+﻿using OkulApp.BLL;
+using OkulApp.MODEL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,25 +14,23 @@ namespace OkulAppSube1BIL
 {
     public partial class frmOgrBul : Form
     {
-        frmOgrKayit frm;
+        private frmOgrKayit frm;
+
+        public bool Bulundu { get; private set; }
+
         public frmOgrBul(frmOgrKayit frm)
         {
             InitializeComponent();
             this.frm = frm;
         }
 
-        private void btnBul_Click(object sender, EventArgs e)
+        private void Bul_Click(object sender, EventArgs e)
         {
-            var obl = new Ogrenci();
-            Ogrenci ogr = obl.OgrenciBul(txtOgrNo.Text.Trim());
-            if (ogr != null)
+            if (ogrenciBulundu)
             {
-                frm.txtAd.Text = ogr.Ad;
-                frm.txtSoyad.Text = ogr.Soyad;
-                frm.txtNumara.Text = ogr.Numara;
-                frm.Ogrenciid = ogr.Ogrenciid;
+                Bulundu = true;
+                this.Close();
             }
-
         }
     }
 }

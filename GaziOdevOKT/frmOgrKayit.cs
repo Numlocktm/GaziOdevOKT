@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using OkulApp.BLL;
+
 
 namespace OkulAppSube1BIL
 {
@@ -17,9 +17,15 @@ namespace OkulAppSube1BIL
     {
 
         public int Ogrenciid { get; set; }
+        public bool Bulundu { get; private set; }
+        public bool ogrenciBulundu { get; private set; }
+
         public frmOgrKayit()
         {
+
             InitializeComponent();
+            btnSil.Enabled = false;            //SİL VE GÜNCELLE AYARI
+            btnGuncelle.Enabled = false;
         }
 
         private void btnKaydet_Click(object sender, EventArgs e)
@@ -50,8 +56,27 @@ namespace OkulAppSube1BIL
 
         private void btnBul_Click(object sender, EventArgs e)
         {
+
             frmOgrBul frm = new frmOgrBul(this);
-            frm.Show();
+            frm.ShowDialog(); // Bul formunu aç
+
+            // Bul formundan döndüğünde, burada kontrol et ve işlemleri yap
+            if (frm.Bulundu)
+            {
+                btnSil.Enabled = true;
+                btnGuncelle.Enabled = true;
+
+                // TextBox'ların içeriğini temizler
+                txtAd.Clear();
+                txtSoyad.Clear();
+                txtNumara.Clear();
+            }
+            // Öğrenci bulunduğunda
+            if (ogrenciBulundu)
+            {
+                Bulundu = true;
+                this.Close(); // Formu kapatır
+            }
         }
 
         private void btnGuncelle_Click(object sender, EventArgs e)

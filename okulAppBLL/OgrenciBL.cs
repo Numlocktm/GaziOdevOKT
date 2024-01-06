@@ -9,16 +9,25 @@ namespace OkulApp.BLL
 {
     public class OgrenciBL
     {
-        public bool OgrenciEkle(Ogrenci ogr)
+        public bool OgrenciEkle(Ogrenci ogr)                             //3. TRY-CATCH EKLEME
         {
-            SqlParameter[] p = {
+            try
+            {
+                SqlParameter[] p = {
                              new SqlParameter("@Ad",ogr.Ad),
                              new SqlParameter("@Soyad",ogr.Soyad),
                              new SqlParameter("@Numara",ogr.Numara)
                          };
 
-            Helper hlp = new Helper();
-            return hlp.ExecuteNonQuery("Insert into tblOgrenciler values(@Ad,@Soyad,@Numara)", p) > 0;
+                Helper hlp = new Helper();
+                return hlp.ExecuteNonQuery("Insert into tblOgrenciler values(@Ad,@Soyad,@Numara)", p) > 0;
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                throw;
+            }
+           
 
         }
 
@@ -41,22 +50,31 @@ namespace OkulApp.BLL
             return hlp.ExecuteNonQuery("Delete from tblOgrenciler where OgrenciId=@OgrenciId", p) > 0;
         }
 
-        public Ogrenci OgrenciBul(string numara)
+        public Ogrenci OgrenciBul(string numara)                                   //4. TRY-CATCH EKLEME
         {
-            SqlParameter[] p = { new SqlParameter("@Numara", numara) };
-            Helper hlp = new Helper();
-            var dr = hlp.ExecuteReader("Select OgrenciId,Ad,Soyad,Numara from tblOgrenciler where Numara=@Numara", p);
-            Ogrenci ogr = null;
-            if (dr.Read())
+            try
             {
-                ogr = new Ogrenci();
-                ogr.Ogrenciid = Convert.ToInt32(dr["OgrenciId"]);
-                ogr.Ad = dr["Ad"].ToString();
-                ogr.Soyad = dr["Soyad"].ToString();
-                ogr.Numara = dr["Numara"].ToString();
+                SqlParameter[] p = { new SqlParameter("@Numara", numara) };
+                Helper hlp = new Helper();
+                var dr = hlp.ExecuteReader("Select OgrenciId,Ad,Soyad,Numara from tblOgrenciler where Numara=@Numara", p);
+                Ogrenci ogr = null;
+                if (dr.Read())
+                {
+                    ogr = new Ogrenci();
+                    ogr.Ogrenciid = Convert.ToInt32(dr["OgrenciId"]);
+                    ogr.Ad = dr["Ad"].ToString();
+                    ogr.Soyad = dr["Soyad"].ToString();
+                    ogr.Numara = dr["Numara"].ToString();
+                }
+                dr.Close();
+                return ogr;
             }
-            dr.Close();
-            return ogr;
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                throw;
+            }
+            
         }
     }
 }
