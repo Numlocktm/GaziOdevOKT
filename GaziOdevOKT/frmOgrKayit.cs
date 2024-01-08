@@ -103,27 +103,27 @@ namespace OkulAppSube1BIL
 
 
 
-    interface ITransfer
-    {
-        int Eft(string gondericiiban, string aliciiban, double tutar);
-        int Havale(string gondericiiban, string aliciiban, double tutar);
+//    interface ITransfer
+//    {
+//        int Eft(string gondericiiban, string aliciiban, double tutar);
+//        int Havale(string gondericiiban, string aliciiban, double tutar);
 
-    }
+//    }
 
-    class Transfer : ITransfer
-    {
-        public int Eft(string gondericiiban, string aliciiban, double tutar)
-        {
-            throw new NotImplementedException();
-        }
+//    class Transfer : ITransfer
+//    {
+//        public int Eft(string gondericiiban, string aliciiban, double tutar)
+//        {
+//            throw new NotImplementedException();
+//        }
 
-        public int Havale(string gondericiiban, string aliciiban, double tutar)
-        {
-            throw new NotImplementedException();
-        }
+//        public int Havale(string gondericiiban, string aliciiban, double tutar)
+//        {
+//            throw new NotImplementedException();
+//        }
 
-        //
-    }
-}
+//        //
+//    }
+//}
 
 //Garbage Collector
